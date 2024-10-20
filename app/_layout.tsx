@@ -10,7 +10,7 @@ import { useEffect } from "react";
 import "react-native-reanimated";
 
 import { useColorScheme } from "@/hooks/useColorScheme";
-import { StatusBar } from "expo-status-bar";
+import { setStatusBarStyle, StatusBar } from "expo-status-bar";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -27,13 +27,19 @@ export default function RootLayout() {
     }
   }, [loaded]);
 
+  useEffect(() => {
+    setTimeout(() => {
+      setStatusBarStyle("light");
+    }, 0);
+  }, []);
+
   if (!loaded) {
     return null;
   }
 
   return (
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-      <StatusBar style="auto" />
+      <StatusBar style="light" />
 
       <Stack>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
